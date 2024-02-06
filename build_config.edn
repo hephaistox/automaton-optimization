@@ -1,0 +1,16 @@
+{:app-name "automaton-optimization"
+ :task-shared {:gha {}
+               :mermaid-dir "docs/code/"
+               :publication
+               {:as-lib org.clojars.hephaistox/automaton-optimization
+                :deploy-to :clojars
+                :license {}
+                :repo "git@github.com:hephaistox/automaton-optimization.git"}
+               :repl-aliases [:common-test :env-development-repl :build]}
+ :tasks {:clean {:dirs [".cpcache/"
+                        ".clj-kondo/.cache/"
+                        "tmp/"
+                        "target/"
+                        "node_modules/"
+                        ".shadow-cljs/builds/"]}
+         :reports {:forbiddenwords-words #{"automaton-web" "landing" "tap>"}}}}
