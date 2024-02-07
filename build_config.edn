@@ -4,6 +4,8 @@
                :publication
                {:as-lib org.clojars.hephaistox/automaton-optimization
                 :deploy-to :clojars
+                :env {:la {}
+                      :production {}}
                 :license {}
                 :repo "git@github.com:hephaistox/automaton-optimization.git"}
                :repl-aliases [:common-test :env-development-repl :build]}
