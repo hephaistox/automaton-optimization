@@ -1,13 +1,13 @@
 {:aliases
  {:bb-deps {:extra-deps #:org.clojars.hephaistox{automaton-build
-                                                 #:mvn{:version "0.0.103"}}}
+                                                 #:mvn{:version "0.10.2-la"}}}
   :build {:extra-deps #:org.clojars.hephaistox{automaton-build
-                                               #:mvn{:version "0.0.103"}}}
+                                               #:mvn{:version "0.10.2-la"}}}
   :cljs-deps
-  {:extra-deps {binaryage/devtools {:mvn/version "1.0.7"}
-                cider/cider-nrepl {:mvn/version "0.21.1"}
+  {:extra-deps {binaryage/devtools #:mvn{:version "1.0.7"}
+                cider/cider-nrepl #:mvn{:version "0.21.1"}
                 refactor-nrepl/refactor-nrepl #:mvn{:version "3.11.1"}
-                thheller/shadow-cljs {:mvn/version "2.25.9"}}
+                thheller/shadow-cljs #:mvn{:version "2.25.9"}}
    :extra-paths ["src/cljs" "src/cljc" "resources" "test/cljs" "test/cljc"]}
   :common-test {:exec-fn cognitect.test-runner.api/test
                 :extra-deps {com.cognitect/test-runner
@@ -19,9 +19,9 @@
                 :extra-paths ["test/clj" "test/cljc" "test/resources"]
                 :jvm-opts ["-Dheph-conf=env/test/config.edn"
                            "-Dheph-common-conf=env/common_config.edn"]}
-  :env-development-repl {:extra-deps {cider/cider-nrepl {:mvn/version "0.44.0"}
-                                      org.clojure/core.async {:mvn/version
-                                                              "1.6.681"}}
+  :env-development-repl {:extra-deps {cider/cider-nrepl #:mvn{:version "0.44.0"}
+                                      org.clojure/core.async #:mvn{:version
+                                                                   "1.6.681"}}
                          :extra-paths ["env/development/resources"
                                        "env/development/src/clj"
                                        "env/development/src/cljc"]
@@ -41,6 +41,6 @@
                "test/clj"
                "-d"
                "test/cljc"]}}
- :deps {org.clojars.hephaistox/automaton-core #:mvn{:version "0.0.71"}
+ :deps {org.clojars.hephaistox/automaton-core #:mvn{:version "0.7.3-la"}
         org.clojure/clojure #:mvn{:version "1.11.1"}}
  :paths ["src/clj" "src/cljc" "resources" "src/cljs"]}
