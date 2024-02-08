@@ -27,13 +27,13 @@
        30)
       {::add-delay-creates-new-date
        {:msg
-        "A random date, with a positive delay creates a new date with different time"
+        "A random date, added with a positive delay creates a new date with different time"
         :result (-> date-stub
                     (sut/add-delay (random-delay-builder)))
         :expect-fn #(and (some? %) (not (sut/equal-date % date-stub)))}
        ::substract-delay-creates-new-date
        {:msg
-        "A random date, with a positive delay creates a new date with different time"
+        "A random date, substracted with a positive delay creates a new date with different time"
         :result (-> date-stub
                     (sut/substract-delay (random-delay-builder)))
         :expect-fn #(and (some? %) (not (sut/equal-date % date-stub)))}})]
