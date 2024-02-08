@@ -7,7 +7,7 @@
 (defrecord DelayDateBucket [nb-buckets]
   optimization-date/DelayDate
     (delay-date [_] nb-buckets)
-    (negate [_] (DelayDateBucket. (- nb-buckets))))
+    (negate [this] (assoc this :nb-buckets (- nb-buckets))))
 
 (defn make-delay-date-bucket [nb-buckets] (->DelayDateBucket nb-buckets))
 
@@ -28,16 +28,20 @@
                                       [[optimization-date/DateProtocol date2]]
                                       (= (:bucket-nb date1)
                                          (:bucket-nb date2))))
-    (add-delay [_ delay-date]
+    (add-delay [this delay-date]
       (core-type-arg/assert-protocols
        "BucketDate/add"
        [[optimization-date/DelayDate delay-date]]
-       (BucketDate. (+ bucket-nb (optimization-date/delay-date delay-date)))))
-    (substract-delay [_ delay-date]
+       (assoc this
+              :bucket-nb
+              (+ bucket-nb (optimization-date/delay-date delay-date)))))
+    (substract-delay [this delay-date]
       (core-type-arg/assert-protocols
        "BucketDate/substract-delay"
        [[optimization-date/DelayDate delay-date]]
-       (BucketDate. (- bucket-nb (optimization-date/delay-date delay-date))))))
+       (assoc this
+              :bucket-nb
+              (- bucket-nb (optimization-date/delay-date delay-date))))))
 
 (defn make-bucket-date
   "Creates a date based on bucket number. The number starts with 0 and number the .
