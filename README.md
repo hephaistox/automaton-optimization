@@ -1,7 +1,7 @@
 # Automaton optimization
 
 ## Objective: 
-Common concepts for optimizations, whatever the technology is : Discrete event simulation, scheduling, linear programming, ...
+Common concepts for optimizations, whatever the technology is: Discrete event simulation, scheduling, linear programming etc.
 
 ## Features
 
@@ -20,7 +20,7 @@ The features of that libraries are:
   * Implementation as variable bucket management (different bucket size)
 * Scenario management
   * Scenario portfolio - 
-  * Scenario persistance -
+  * Scenario persistence -
 * Optimization runner
   * Randomized setup - when some parameters of the optimization are random variable
   * Multiple seed execution
@@ -28,7 +28,7 @@ The features of that libraries are:
   * Being able to compare solutions
 * Objective comparison 
   * Simple mono objective comparison
-  * Multi objective comparison (Pareto front)
+  * Multi-objective comparison (Pareto front)
 * Time phased variable 
   * Generic interface - get a data at a given time whatever the implementation
   * Constant piecewise [cf. def](https://mathworld.wolfram.com/PiecewiseConstantFunction.html)
@@ -47,3 +47,5 @@ The features of that libraries are:
      * typical usage:;
        * Demand: when a demand is set in a month, we don't really know what day it is, all zoom in should spread the value in the interval so the final total is the same
 
+License information can be found in [LICENSE file](LICENSE.md)
+Copyright © 2020-2024 Anthony Caumond, Mateusz Mazurczak
