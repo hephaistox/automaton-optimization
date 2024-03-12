@@ -1,4 +1,4 @@
 {:env :development
- :production false
+ :test-type-arg? false
  :dev {:clj-nrepl-port 8019
         :portal-port 8351}}

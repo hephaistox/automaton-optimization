@@ -1,11 +1,11 @@
 {
   "name": "automaton-core",
-  "repository": "https://github.com/hephaistox/automaton-core",
+  "repository": "https://github.com/hephaistox/automaton-optimization",
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "description": "automaton-core",
-  "version": "1.0.0",
+  "description": "automaton-optimization",
+  "version": "0.0.0",
   "author": "Hephaistox <info@hephaistox.com>",
   "dependencies": {
     "@sentry/browser": "^7.73.0"

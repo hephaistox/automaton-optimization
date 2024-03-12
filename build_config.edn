@@ -17,4 +17,4 @@
                         ".shadow-cljs/builds/"]}
          :lfe-test {}
          :lfe-watch {}
-         :reports {:forbiddenwords-words #{"automaton-web" "landing" "tap>"}}}}
+         :reports {:forbiddenwords-words #{"automaton-build" "automaton-web" "landing" "tap>"}}}}
