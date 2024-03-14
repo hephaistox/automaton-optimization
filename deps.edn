@@ -15,7 +15,7 @@
                               "https://github.com/cognitect-labs/test-runner"
                               :sha "7284cda41fb9edc0f3bc6b6185cfb7138fc8a023"}
                              org.clojure/tools.namespace #:mvn{:version "1.5.0"}
-                             org.clojure/tools.reader #:mvn{:version "1.4.0"}}
+                             org.clojure/tools.reader #:mvn{:version "1.4.1"}}
                 :extra-paths ["test/clj" "test/cljc" "test/resources"]
                 :jvm-opts ["-Dheph-conf=env/test/config.edn"
                            "-Dheph-common-conf=env/common_config.edn"]}
