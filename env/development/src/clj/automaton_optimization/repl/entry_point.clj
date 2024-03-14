@@ -1,18 +1,18 @@
-(ns automaton-optimization.repl-core
-  "repl for `automaton-simulation-de` stand alone"
+(ns automaton-optimization.repl.entry-point
+  "repl for `automaton-optimization` stand alone"
   (:require
    [automaton-core.log :as core-log]
    [automaton-core.repl :as core-repl]
-   [clojure.core.async :refer [<! chan go]]
    [mount.core :as mount]
    [mount.tools.graph :as graph])
   (:gen-class))
 
+(defn- stub [& _args] (constantly nil))
+
 (defn -main
   "Main entry point for repl"
-  [& _args]
+  [& args]
   (core-log/info "Start `automaton-simulation-de`")
   (core-log/trace "Component dependencies: " (graph/states-with-deps))
-  (mount/start)
-  (core-repl/start-repl)
-  (let [c (chan 1)] (go (<! c))))
+  (core-repl/start-repl args (core-repl/default-middleware) stub)
+  (mount/start))
