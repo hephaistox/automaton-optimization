@@ -1,10 +1,10 @@
 (ns automaton-optimization.repl.entry-point
   "repl for `automaton-optimization` stand alone"
   (:require
-   [automaton-core.log :as core-log]
+   [automaton-core.log  :as core-log]
    [automaton-core.repl :as core-repl]
-   [mount.core :as mount]
-   [mount.tools.graph :as graph])
+   [mount.core          :as mount]
+   [mount.tools.graph   :as graph])
   (:gen-class))
 
 (defn- stub [& _args] (constantly nil))
