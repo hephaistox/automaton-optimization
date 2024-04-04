@@ -1,6 +1,6 @@
 (ns automaton-optimization.date.bucket-test
   (:require
-   [automaton-optimization.date-test :as optimization-date-test]
+   [automaton-optimization.date-test   :as optimization-date-test]
    [automaton-optimization.date.bucket :as sut]
    #?@(:clj [[clojure.test :refer [deftest is testing]]]
        :cljs [[cljs.test :refer [deftest is testing] :include-macros true]])))
