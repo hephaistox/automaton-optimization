@@ -1,9 +1,9 @@
 (ns automaton-optimization.date-test
   "Prepare test namespaces for all date's implementation"
   (:require
-   [automaton-optimization.date :as sut]
    [automaton-core.protocols.binary-relation :as core-protocols-binary-relation]
-   [automaton-core.protocols.test-registry :as core-protocols-test-registry]))
+   [automaton-core.protocols.test-registry   :as core-protocols-test-registry]
+   [automaton-optimization.date              :as sut]))
 
 (defn validate-date-protocol-constraints
   "Validate the `sut/DateProtocol`'s implementation

@@ -7,5 +7,5 @@
   (client-connect)
   (tap> :bar)
   (tst)
-;
-  )
+  ;
+)

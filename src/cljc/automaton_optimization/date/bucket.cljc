@@ -2,7 +2,7 @@
   "Stores a date as an integer - representing time buckets, starting at `0`."
   (:require
    [automaton-core.utils.type-arg :as core-type-arg]
-   [automaton-optimization.date :as optimization-date]))
+   [automaton-optimization.date   :as optimization-date]))
 
 (defrecord DelayDateBucket [nb-buckets]
   optimization-date/DelayDate
