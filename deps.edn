@@ -1,8 +1,8 @@
 {:aliases
- {:bb-deps {:extra-deps {org.clojars.hephaistox/automaton-build #:mvn{:version
-                                                                      "1.4.1-la"}}}
-  :build {:extra-deps {org.clojars.hephaistox/automaton-build #:mvn{:version
-                                                                    "1.4.1-la"}}}
+ {:bb-deps {:extra-deps {org.clojars.hephaistox/automaton-build
+                         #:mvn{:version "1.4.2-2-la"}}}
+  :build {:extra-deps {org.clojars.hephaistox/automaton-build
+                       #:mvn{:version "1.4.2-2-la"}}}
   :cljs-deps {:extra-deps {binaryage/devtools #:mvn{:version "1.0.7"}
                            thheller/shadow-cljs #:mvn{:version "2.28.2"}}
               :extra-paths
@@ -17,7 +17,8 @@
    :extra-paths ["test/clj" "test/cljc" "test/resources"]
    :jvm-opts ["-Dheph-conf=env/test/config.edn,env/test/config.edn"]}
   :env-development-repl
-  {:extra-deps {org.clojars.hephaistox/automaton-core #:mvn{:version "1.2.0-la"}}
+  {:extra-deps {org.clojars.hephaistox/automaton-core #:mvn{:version
+                                                            "1.2.1-2-la"}}
    :extra-paths ["env/development/resources"
                  "env/development/src/clj"
                  "env/development/src/cljc"]
@@ -36,6 +37,6 @@
                "test/clj"
                "-d"
                "test/cljc"]}}
- :deps {org.clojars.hephaistox/automaton-core #:mvn{:version "1.2.0-la"}
+ :deps {org.clojars.hephaistox/automaton-core #:mvn{:version "1.2.1-2-la"}
         org.clojure/clojure #:mvn{:version "1.11.2"}}
  :paths ["src/clj" "src/cljc" "resources" "src/cljs"]}
