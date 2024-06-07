@@ -48,7 +48,6 @@ And leverage it in the distribution.
 ```
 
 However some numbers have been generated, you can store them in `samples`.
-;;TODO 
 
 # Reference
 This section details the features of the randomness feature. The lib offers three main features:
