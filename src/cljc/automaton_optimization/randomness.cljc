@@ -2,7 +2,7 @@
   "Randomness for optimization projects."
   (:require
    [automaton-optimization.randomness.distribution
-    :as opt-distribution]
+    :as opt-proba-distribution]
    [automaton-optimization.randomness.impl.distribution.factory
     :as opt-distribution-factory]
    [automaton-optimization.randomness.impl.distribution.registry
@@ -97,10 +97,10 @@
 
 (defn draw
   "`(draw)` returns a random value following `distribution`."
-  ([distribution] (opt-distribution/draw distribution))
+  ([distribution] (opt-proba-distribution/draw distribution))
   ([kw params]
    (-> (build kw params)
-       opt-distribution/draw)))
+       opt-proba-distribution/draw)))
 
 (defn distribution-registry
   "Returns the base registry."
@@ -110,19 +110,19 @@
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn median
   "Returns the median of the distribution"
-  ([distribution] (opt-distribution/median distribution))
-  ([kw params] (opt-distribution/median (build kw params))))
+  ([distribution] (opt-proba-distribution/median distribution))
+  ([kw params] (opt-proba-distribution/median (build kw params))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (def cumulative
   "Returns the cumulative probability before `p`"
-  opt-distribution/cumulative)
+  opt-proba-distribution/cumulative)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(def minimum "Minimum" opt-distribution/minimum)
+(def minimum "Minimum" opt-proba-distribution/minimum)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(def maximum "Maximum" opt-distribution/maximum)
+(def maximum "Maximum" opt-proba-distribution/maximum)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(def quantile opt-distribution/quantile)
+(def quantile opt-proba-distribution/quantile)

@@ -8,8 +8,7 @@
 
   ![Aggregate entity diagram](archi/time_based/tb_var_additive.png)"
   (:require
-   [automaton-optimization.time-based.impl.storage-strategy
-    :as opt-tb-storage-strategy]
+   [automaton-optimization.time-based.impl.storage-strategy :as opt-tb-ss]
    [automaton-optimization.time-based.protocol              :as
                                                             opt-tb-protocol]))
 
@@ -17,14 +16,14 @@
   opt-tb-protocol/TimeBased
     (default [_] default-value)
     (get-measure [_ bucket]
-      (if-let [val (opt-tb-storage-strategy/get-exact storage bucket)]
+      (if-let [val (opt-tb-ss/get-exact storage bucket)]
         val
         default-value))
     (get-measures [_ buckets]
       (mapv #(if (nil? %) default-value %)
-            (opt-tb-storage-strategy/get-measures storage buckets)))
+            (opt-tb-ss/get-measures storage buckets)))
     (measure [_ bucket data]
-      (TbVarAdditive. (opt-tb-storage-strategy/update-date
+      (TbVarAdditive. (opt-tb-ss/update-date
                        storage
                        bucket
                        (fn [val]
