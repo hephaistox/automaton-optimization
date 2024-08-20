@@ -1,3 +1,4 @@
+#_{:heph-ignore {:reports false}}
 (ns automaton-optimization.randomness.impl.distribution.factory-test
   (:require
    [automaton-optimization.randomness.distribution

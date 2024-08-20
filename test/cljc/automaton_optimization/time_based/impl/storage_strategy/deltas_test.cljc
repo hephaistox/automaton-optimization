@@ -1,3 +1,4 @@
+#_{:heph-ignore {:reports false}}
 (ns automaton-optimization.time-based.impl.storage-strategy.deltas-test
   (:require
    #?(:clj [clojure.test :refer [deftest is]]
