@@ -1,3 +1,4 @@
+#_{:heph-ignore {:reports false}}
 (ns automaton-optimization.time-based.impl.var-additive
   "`tb-var` that stores additive informations over time buckets.
 
