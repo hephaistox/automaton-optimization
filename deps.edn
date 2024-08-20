@@ -1,8 +1,8 @@
 {:aliases
  {:bb-deps {:extra-deps {org.clojars.hephaistox/automaton-build
-                         #:mvn{:version "2.0.1-4-la"}}}
+                         #:mvn{:version "2.0.1-5-la"}}}
   :build {:extra-deps {org.clojars.hephaistox/automaton-build
-                       #:mvn{:version "2.0.1-4-la"}}}
+                       #:mvn{:version "2.0.1-5-la"}}}
   :cljs-deps {:extra-deps {binaryage/devtools #:mvn{:version "1.0.7"}
                            criterium/criterium {:mvn/version "0.4.6"}
                            kixi/stats {:mvn/version "0.5.5"}
@@ -21,7 +21,7 @@
    :jvm-opts ["-Dheph-conf=env/test/config.edn,env/test/config.edn"]}
   :env-development-repl
   {:extra-deps {org.clojars.hephaistox/automaton-core #:mvn{:version
-                                                            "1.2.8-4-la"}}
+                                                            "1.2.8-5-la"}}
    :extra-paths ["env/development/resources"
                  "env/development/src/clj"
                  "env/development/src/cljc"]
@@ -42,7 +42,7 @@
                "test/cljc"]}}
  :deps {criterium/criterium {:mvn/version "0.4.6"}
         kixi/stats {:mvn/version "0.5.5"}
-        org.clojars.hephaistox/automaton-core #:mvn{:version "1.2.8-4-la"}
+        org.clojars.hephaistox/automaton-core #:mvn{:version "1.2.8-5-la"}
         org.clojure/clojure #:mvn{:version "1.11.2"}
         thedavidmeister/xoroshiro128 #:mvn{:version "1.1.3"}}
  :paths ["src/clj" "src/cljc" "resources" "src/cljs"]}
