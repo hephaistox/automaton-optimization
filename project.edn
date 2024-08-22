@@ -1,0 +1,3 @@
+{:app-name "automaton-optimization"
+ :code {:forbidden-words #{"DONE" "FIXME" "NOTE" "TODO" "automaton-build"
+                           "landing" "tap>"}}}
