@@ -2,10 +2,8 @@
   "An uniform distribution of integers."
   (:require
    [automaton-optimization.maths                         :as opt-maths]
-   [automaton-optimization.randomness.distribution       :as
-                                                         opt-proba-distribution]
-   [automaton-optimization.randomness.impl.prng.stateful :as
-                                                         opt-prng-stateful]))
+   [automaton-optimization.randomness.distribution       :as opt-proba-distribution]
+   [automaton-optimization.randomness.impl.prng.stateful :as opt-prng-stateful]))
 
 (defrecord UniformInteger [prng a b]
   opt-proba-distribution/Distribution

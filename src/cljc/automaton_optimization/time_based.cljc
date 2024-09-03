@@ -10,22 +10,14 @@
   Some `bucket` of a `tb-var` can be grouped in `bucket-aggregate`, note that this `bucket-aggregate` will be seen as the `bucket` of the newly created `tb-var`.
   ![Bucket aggregate entity diagram](archi/time_based/bucket-aggregate.png)"
   (:require
-   [automaton-optimization.time-based.impl.aggregates
-    :as opt-tb-aggregates]
-   [automaton-optimization.time-based.impl.aggregator
-    :as opt-tb-aggregator]
-   [automaton-optimization.time-based.impl.storage-strategy.contiguous
-    :as opt-tb-ss-contiguous]
-   [automaton-optimization.time-based.impl.storage-strategy.deltas
-    :as opt-tb-ss-deltas]
-   [automaton-optimization.time-based.impl.var-additive
-    :as opt-tb-var-additive]
-   [automaton-optimization.time-based.impl.var-aggregated
-    :as opt-tb-var-aggregated]
-   [automaton-optimization.time-based.impl.var-latest
-    :as opt-tb-var-latest]
-   [automaton-optimization.time-based.protocol
-    :as opt-tb-protocol]))
+   [automaton-optimization.time-based.impl.aggregates                  :as opt-tb-aggregates]
+   [automaton-optimization.time-based.impl.aggregator                  :as opt-tb-aggregator]
+   [automaton-optimization.time-based.impl.storage-strategy.contiguous :as opt-tb-contiguous]
+   [automaton-optimization.time-based.impl.storage-strategy.deltas     :as opt-tb-deltas]
+   [automaton-optimization.time-based.impl.var-additive                :as opt-tb-var-additive]
+   [automaton-optimization.time-based.impl.var-aggregated              :as opt-tb-var-aggregated]
+   [automaton-optimization.time-based.impl.var-latest                  :as opt-tb-var-latest]
+   [automaton-optimization.time-based.protocol                         :as opt-tb-protocol]))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn tb-var-additive-deltas
@@ -41,9 +33,8 @@
   For instance, a production is additive, since a new production recorded in the same scenario-time is added to the previous automaton-optimization.time-based.impl.additive.
 
   This form is optimized for variables that has few values over the horizon, as it is storing only deltas, so only change in the value."
-  ([default-value]
-   (opt-tb-var-additive/make (opt-tb-ss-deltas/make) default-value))
-  ([] (opt-tb-var-additive/make (opt-tb-ss-deltas/make))))
+  ([default-value] (opt-tb-var-additive/make (opt-tb-deltas/make) default-value))
+  ([] (opt-tb-var-additive/make (opt-tb-deltas/make))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn tb-var-additive-contiguous
@@ -59,11 +50,9 @@
   For instance, a production is additive, since a new production recorded in the same scenario-time is added to the previous automaton-optimization.time-based.impl.additive.
 
   This form is optimized for variables that has values all over the horizon, as it is storing in contiguous data structure."
-  ([default-value size]
-   (opt-tb-var-additive/make (opt-tb-ss-contiguous/make size) default-value))
-  ([default-value]
-   (opt-tb-var-additive/make (opt-tb-ss-contiguous/make 10) default-value))
-  ([] (opt-tb-var-additive/make (opt-tb-ss-contiguous/make 10))))
+  ([default-value size] (opt-tb-var-additive/make (opt-tb-contiguous/make size) default-value))
+  ([default-value] (opt-tb-var-additive/make (opt-tb-contiguous/make 10) default-value))
+  ([] (opt-tb-var-additive/make (opt-tb-contiguous/make 10))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn tb-var-latest-deltas
@@ -79,8 +68,7 @@
 
   This form particularly is optimized for variables that has few values over the horizon, as it is storing deltas."
   ([] (tb-var-latest-deltas nil))
-  ([default-value]
-   (opt-tb-var-latest/make (opt-tb-ss-deltas/make) default-value)))
+  ([default-value] (opt-tb-var-latest/make (opt-tb-deltas/make) default-value)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn tb-var-latest-contiguous
@@ -95,10 +83,8 @@
   For instance, a stock level is such, since a new stock level will be recorded at that moment.
 
   This form particularly is optimized for variables that has values all over the horizon, as it is storing in contiguous data strucure."
-  ([default-value size]
-   (opt-tb-var-latest/make (opt-tb-ss-contiguous/make size) default-value))
-  ([default-value]
-   (opt-tb-var-latest/make (opt-tb-ss-contiguous/make 10) default-value)))
+  ([default-value size] (opt-tb-var-latest/make (opt-tb-contiguous/make size) default-value))
+  ([default-value] (opt-tb-var-latest/make (opt-tb-contiguous/make 10) default-value)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn default

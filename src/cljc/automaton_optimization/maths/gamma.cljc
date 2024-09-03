@@ -55,10 +55,7 @@
    6.116095104481416E-9])
 
 (def ^:no-doc Q
-  [2.6923694661863613E-4
-   0.004956830093825887
-   0.054642130860422966
-   0.3056961078365221])
+  [2.6923694661863613E-4 0.004956830093825887 0.054642130860422966 0.3056961078365221])
 
 (def ^:no-doc C
   [-0.205633841697760710345015413002057E-06
@@ -82,8 +79,7 @@
 (defn lanczos-approximation
   "Computes the Lanczos approximation to the Gamma function for `x`."
   [x]
-  (+ (reduce (fn [sum [i l]] (+ sum (/ l (+ x i)))) 0.0 LANCZOS)
-     0.9999999999999971))
+  (+ (reduce (fn [sum [i l]] (+ sum (/ l (+ x i)))) 0.0 LANCZOS) 0.9999999999999971))
 
 (defn inv-gamma-1pm1
   "Computes the function `(dec (/ 1 (gamma (inc x))))`, where `x∊[-0.5;0.5]`."
@@ -92,10 +88,7 @@
     (if (< t 0)
       (let [[a0 a1] A
             b (inc (* t (reduce (fn [b b'] (+ (* t b) b')) B)))
-            c (+ CA
-                 (*
-                  t
-                  (reduce (fn [c c'] (+ (* t c) c')) (/ (+ a0 (* a1 t)) b) C)))]
+            c (+ CA (* t (reduce (fn [c c'] (+ (* t c) c')) (/ (+ a0 (* a1 t)) b) C)))]
         (if (> x 0.5) (* t (/ c x)) (* x (inc c))))
       (let [p (reduce (fn [p p'] (+ (* t p) p')) P)
             q (inc (* t (reduce (fn [q q'] (+ (* t q) q')) Q)))
@@ -115,13 +108,9 @@
     (<= x 2.5) (log-gamma-1p (dec x))
     (<= x 8.0) (let [n (int (floor (- x 1.5)))]
                  (+ (log-gamma-1p (- x (inc n)))
-                    (loop [i 1
-                           p 1.0]
-                      (if (<= i n) (recur (inc i) (* p (- x i))) (log p)))))
+                    (loop [i 1 p 1.0] (if (<= i n) (recur (inc i) (* p (- x i))) (log p)))))
     :else (let [t (+ x LANCZOS_G 0.5)]
-            (+ (- (* (+ x 0.5) (log t)) t)
-               HALF_LOG_2_PI
-               (log (/ (lanczos-approximation x) x))))))
+            (+ (- (* (+ x 0.5) (log t)) t) HALF_LOG_2_PI (log (/ (lanczos-approximation x) x))))))
 
 (defn gamma
   "Computes the value of Γx."
@@ -129,19 +118,13 @@
   (let [abs-x (abs x)]
     (if (<= abs-x 20)
       (if (>= x 1)
-        (loop [t (dec x)
-               p 1]
-          (if (> t 1.5) (recur (dec t) (* p t)) (/ p (inc (inv-gamma-1pm1 t)))))
+        (loop [t (dec x) p 1] (if (> t 1.5) (recur (dec t) (* p t)) (/ p (inc (inv-gamma-1pm1 t)))))
         (loop [t (inc x)
                p x]
-          (if (< t 0.5)
-            (recur (inc t) (* p t))
-            (/ 1 (* p (inc (inv-gamma-1pm1 (dec t))))))))
+          (if (< t 0.5) (recur (inc t) (* p t)) (/ 1 (* p (inc (inv-gamma-1pm1 (dec t))))))))
       (let [y (+ abs-x LANCZOS_G 0.5)
-            abs-g (* (/ SQRT_2_PI abs-x)
-                     (pow y (+ abs-x 0.5))
-                     (exp (- y))
-                     (lanczos-approximation abs-x))]
+            abs-g
+            (* (/ SQRT_2_PI abs-x) (pow y (+ abs-x 0.5)) (exp (- y)) (lanczos-approximation abs-x))]
         (if (pos? x) abs-g (/ (- PI) (* x abs-g (sin (* PI x)))))))))
 
 (defn lower-regularized-gamma
@@ -158,9 +141,7 @@
                del (double (/ 1 ap))
                sum (double (/ 1 ap))]
           (if (< i max-iter)
-            (let [ap (inc ap)
-                  del (* del (/ x ap))]
-              (recur (inc i) ap del (+ sum del)))
+            (let [ap (inc ap) del (* del (/ x ap))] (recur (inc i) ap del (+ sum del)))
             (* sum (exp (- (* a (log x)) x (log-gamma a))))))
         (loop [i 1
                b (double (- (inc x) a))
@@ -183,38 +164,33 @@
   (cond
     (>= p 1.0) (max 100.0 (+ a (* 100.0 (sqrt a))))
     (<= p 0.0) 0.0
-    :else
-    (let [gln (log-gamma a)
-          a1 (dec a)
-          lna1 (log a1)
-          afac (exp (- (* a1 (dec lna1)) gln))
-          EPS 1e-8
-          x (if (> a 1)
-              (let [pp (if (< p 0.5) p (- 1 p))
-                    t (sqrt (* -2 (log pp)))
-                    x (- (/ (+ 2.30753 (* 0.27061 t))
-                            (+ 1 (* t (+ 0.99229 (* 0.04481 t)))))
-                         t)
-                    x (if (< p 0.5) (- x) x)]
-                (max 1e-3
-                     (* a (pow (- 1 (/ 1 (* 9 a)) (/ x (* 3 (sqrt a)))) 3))))
-              (let [t (- 1 (* a (+ 0.253 (* 0.12 a))))]
-                (if (< p t)
-                  (pow (/ p t) (/ 1 a))
-                  (- 1 (log (- 1 (/ (- p t) (- 1 t))))))))]
-      (loop [j 0
-             x x]
-        (if (<= x 0.0)
-          0.0
-          (let [err (- (lower-regularized-gamma a x) p)
-                t (if (> a 1)
-                    (* afac (exp (- (* a1 (- (log x) lna1)) (- x a1))))
-                    (exp (- (* a1 (log x)) gln x)))
-                u (/ err t)
-                t (/ u (- 1 (* 0.5 (min 1 (* u (dec (/ (dec a) x)))))))
-                x (- x t)
-                x (if (<= x 0) (* 0.5 (+ x t)) x)]
-            (if (or (< (abs t) (* EPS x)) (= j 11)) x (recur (inc j) x))))))))
+    :else (let [gln (log-gamma a)
+                a1 (dec a)
+                lna1 (log a1)
+                afac (exp (- (* a1 (dec lna1)) gln))
+                EPS 1e-8
+                x (if (> a 1)
+                    (let [pp (if (< p 0.5) p (- 1 p))
+                          t (sqrt (* -2 (log pp)))
+                          x (- (/ (+ 2.30753 (* 0.27061 t)) (+ 1 (* t (+ 0.99229 (* 0.04481 t)))))
+                               t)
+                          x (if (< p 0.5) (- x) x)]
+                      (max 1e-3 (* a (pow (- 1 (/ 1 (* 9 a)) (/ x (* 3 (sqrt a)))) 3))))
+                    (let [t (- 1 (* a (+ 0.253 (* 0.12 a))))]
+                      (if (< p t) (pow (/ p t) (/ 1 a)) (- 1 (log (- 1 (/ (- p t) (- 1 t))))))))]
+            (loop [j 0
+                   x x]
+              (if (<= x 0.0)
+                0.0
+                (let [err (- (lower-regularized-gamma a x) p)
+                      t (if (> a 1)
+                          (* afac (exp (- (* a1 (- (log x) lna1)) (- x a1))))
+                          (exp (- (* a1 (log x)) gln x)))
+                      u (/ err t)
+                      t (/ u (- 1 (* 0.5 (min 1 (* u (dec (/ (dec a) x)))))))
+                      x (- x t)
+                      x (if (<= x 0) (* 0.5 (+ x t)) x)]
+                  (if (or (< (abs t) (* EPS x)) (= j 11)) x (recur (inc j) x))))))))
 
 (defn log-beta
   "Computes the log of the beta function."
@@ -225,9 +201,7 @@
   "Computes the beta function."
   [a b]
   (when (and (pos? a) (pos? b))
-    (if (> (+ a b) 170)
-      (exp (log-beta a b))
-      (/ (* (gamma a) (gamma b)) (gamma (+ a b))))))
+    (if (> (+ a b) 170) (exp (log-beta a b)) (/ (* (gamma a) (gamma b)) (gamma (+ a b))))))
 
 (defn betacf
   "Evaluates the continued fraction for the incomplete beta function.
@@ -274,46 +248,42 @@
   (cond
     (<= p 0) 0.0
     (>= p 1) 1.0
-    :else
-    (let [eps 1e-8
-          a1 (dec a)
-          b1 (dec b)
-          x (if (and (>= a 1) (>= b 1))
-              (let [pp (if (< p 0.5) p (- 1 p))
-                    t (sqrt (* -2 (log pp)))
-                    x (- (/ (+ 2.30753 (* t 0.27061))
-                            (inc (* t (+ 0.99229 (* t 0.04481)))))
-                         t)
-                    x (if (< p 0.5) (- x) x)
-                    al (/ (- (square x) 3) 6)
-                    h (/ 2 (+ (/ 1 (dec (* 2 a))) (/ 1 (dec (* 2 b)))))
-                    w (- (/ (* x (sqrt (+ al h))) h)
-                         (* (- (/ 1 (dec (* 2 b))) (/ 1 (dec (* 2 a))))
-                            (+ al (/ 5 6) (/ -2 (* 3 h)))))]
-                (/ a (+ a (* b (exp (* 2 w))))))
-              (let [lna (log (/ a (+ a b)))
-                    lnb (log (/ b (+ a b)))
-                    t (/ (exp (* a lna)) a)
-                    u (/ (exp (* b lnb)) b)
-                    w (+ t u)]
-                (if (< p (/ t w))
-                  (pow (* a w p) (/ 1 a))
-                  (- 1 (pow (* b w (- 1 p)) (/ 1 b))))))
-          afac (- (log-gamma (+ a b)) (log-gamma a) (log-gamma b))]
-      (loop [j 0
-             x x]
-        (if (or (== x 0) (== x 1) (>= j 10))
-          x
-          (let [err (- (ibeta x a b) p)
-                t (exp (+ (* a1 (log x)) (* b1 (log (- 1 x))) afac))
-                u (/ err t)
-                t (/ u (- 1 (* 0.5 (min 1 (* u (- (/ a1 x) (/ b1 (- 1 x))))))))
-                x (- x t)
-                x (cond
-                    (<= x 0) (* 0.5 (+ x t))
-                    (>= x 1) (* 0.5 (+ x t 1))
-                    :else x)]
-            (if (and (> j 0) (< (abs t) (* eps x))) x (recur (inc j) x))))))))
+    :else (let [eps 1e-8
+                a1 (dec a)
+                b1 (dec b)
+                x
+                (if (and (>= a 1) (>= b 1))
+                  (let [pp (if (< p 0.5) p (- 1 p))
+                        t (sqrt (* -2 (log pp)))
+                        x (- (/ (+ 2.30753 (* t 0.27061)) (inc (* t (+ 0.99229 (* t 0.04481))))) t)
+                        x (if (< p 0.5) (- x) x)
+                        al (/ (- (square x) 3) 6)
+                        h (/ 2 (+ (/ 1 (dec (* 2 a))) (/ 1 (dec (* 2 b)))))
+                        w (- (/ (* x (sqrt (+ al h))) h)
+                             (* (- (/ 1 (dec (* 2 b))) (/ 1 (dec (* 2 a))))
+                                (+ al (/ 5 6) (/ -2 (* 3 h)))))]
+                    (/ a (+ a (* b (exp (* 2 w))))))
+                  (let [lna (log (/ a (+ a b)))
+                        lnb (log (/ b (+ a b)))
+                        t (/ (exp (* a lna)) a)
+                        u (/ (exp (* b lnb)) b)
+                        w (+ t u)]
+                    (if (< p (/ t w)) (pow (* a w p) (/ 1 a)) (- 1 (pow (* b w (- 1 p)) (/ 1 b))))))
+                afac (- (log-gamma (+ a b)) (log-gamma a) (log-gamma b))]
+            (loop [j 0
+                   x x]
+              (if (or (== x 0) (== x 1) (>= j 10))
+                x
+                (let [err (- (ibeta x a b) p)
+                      t (exp (+ (* a1 (log x)) (* b1 (log (- 1 x))) afac))
+                      u (/ err t)
+                      t (/ u (- 1 (* 0.5 (min 1 (* u (- (/ a1 x) (/ b1 (- 1 x))))))))
+                      x (- x t)
+                      x (cond
+                          (<= x 0) (* 0.5 (+ x t))
+                          (>= x 1) (* 0.5 (+ x t 1))
+                          :else x)]
+                  (if (and (> j 0) (< (abs t) (* eps x))) x (recur (inc j) x))))))))
 
 (defn erf
   "Computes the error function."
@@ -362,21 +332,15 @@
   (cond
     (>= p 2) -100
     (<= p 0) 100
-    :else (let [pp (if (< p 1) p (- 2 p))
-                t (sqrt (* -2 (log (* pp 0.5))))
-                x (* -0.70711
-                     (- (/ (+ (* 0.27061 t) 2.30753)
-                           (+ 1 (* t (+ (* 0.04481 t) 0.99229))))
-                        t))
-                x (loop [j 0
-                         x x]
-                    (if (< j 2)
-                      (let [err (- (erfc x) pp)]
-                        (recur (inc j)
-                               (+ x
-                                  (/ err
-                                     (- (* 1.12837916709551257
-                                           (exp (* (- x) x)))
-                                        (* x err))))))
-                      x))]
-            (if (< p 1) x (- x)))))
+    :else
+    (let [pp (if (< p 1) p (- 2 p))
+          t (sqrt (* -2 (log (* pp 0.5))))
+          x (* -0.70711 (- (/ (+ (* 0.27061 t) 2.30753) (+ 1 (* t (+ (* 0.04481 t) 0.99229)))) t))
+          x (loop [j 0
+                   x x]
+              (if (< j 2)
+                (let [err (- (erfc x) pp)]
+                  (recur (inc j)
+                         (+ x (/ err (- (* 1.12837916709551257 (exp (* (- x) x))) (* x err))))))
+                x))]
+      (if (< p 1) x (- x)))))

@@ -7,6 +7,5 @@
 
 (deftest as-int-pair-test
   (testing "Is generated `as-int` actually an Integer."
-    (is (nil? (core-schema/validate-data-humanize
-               [:sequential int?]
-               (sut/as-int-pair (sut/xoroshiro128) 10 16))))))
+    (is (nil? (core-schema/validate-data-humanize [:sequential int?]
+                                                  (sut/as-int-pair (sut/xoroshiro128) 10 16))))))

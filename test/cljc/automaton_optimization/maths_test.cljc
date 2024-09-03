@@ -41,23 +41,18 @@
     (is (empty? (test-fn-vals sut/abs = [[-1 1] [1 1] [0 0] [-1000 1000]])))
     (is (empty? (test-fn-vals sut/abs double-compare [[10.5 10.5] [-1.5 1.5]])))
     (is (empty? (test-fn-vals sut/abs-int int-compare [[5 5] [-2 2]])))
-    (is (empty?
-         (test-fn-vals sut/abs-double double-compare [[0.5 0.5] [-0.5 0.5]])))
+    (is (empty? (test-fn-vals sut/abs-double double-compare [[0.5 0.5] [-0.5 0.5]])))
     (is (not (neg? (sut/abs-double 0.0))))))
 
 (deftest sqrt-test
   (testing "Happy path"
-    (is (empty? (test-fn-vals sut/sqrt
-                              double-compare
-                              [[4 2.0] [0 0.0] [16 4.0] [1.96 1.4]])))
+    (is (empty? (test-fn-vals sut/sqrt double-compare [[4 2.0] [0 0.0] [16 4.0] [1.96 1.4]])))
     (is (empty? (test-fn-vals sut/sqrt double-compare [[0 0] [4 2]])))))
 
 (deftest square-test
   (is (empty? (test-fn-vals sut/square double-compare [[0 0.0] [4 16.0]])))
   (is (empty? (test-fn-vals sut/square-int int-compare [[0 0] [4 16] [-2 4]])))
-  (is (empty? (test-fn-vals sut/square-double
-                            double-compare
-                            [[0 0] [4 16] [-2.0 4]]))))
+  (is (empty? (test-fn-vals sut/square-double double-compare [[0 0] [4 16] [-2.0 4]]))))
 
 (deftest pow-test (is (double-compare (sut/pow 3.0 3.0) 27.0)))
 
@@ -127,9 +122,8 @@
                               double-compare
                               [[-1 nil] [10 nil] [100 nil] [0 0] [1 1]]))))
   (testing "Infinite interval"
-    (is (empty? (test-fn-vals (partial sut/interval-affine-fn 1 0 nil nil)
-                              double-compare
-                              [[-1 -1]])))
+    (is (empty?
+         (test-fn-vals (partial sut/interval-affine-fn 1 0 nil nil) double-compare [[-1 -1]])))
     (is (empty? (test-fn-vals (partial sut/interval-affine-fn 1 0 10 nil)
                               double-compare
                               [[-1 nil] [9 nil] [10 10] [10000 10000]])))
@@ -137,10 +131,9 @@
                               double-compare
                               [[-1 -1] [9 9] [10 nil] [10000 nil]]))))
   (testing "Move range"
-    (is (empty? (test-fn-vals
-                 (partial sut/interval-affine-fn 2 0 100 110)
-                 double-compare
-                 [[-1 nil] [10 nil] [99 nil] [100 200] [105 210] [112 nil]]))))
+    (is (empty? (test-fn-vals (partial sut/interval-affine-fn 2 0 100 110)
+                              double-compare
+                              [[-1 nil] [10 nil] [99 nil] [100 200] [105 210] [112 nil]]))))
   (testing "Function not crossing origin"
     (is (empty? (test-fn-vals (partial sut/interval-affine-fn 2 10 0 10)
                               double-compare
@@ -155,8 +148,7 @@
     (is (nil? (sut/proportion even? [])))))
 
 (deftest polynomial-value-test
-  (testing "When polynomial is constant."
-    (is (= 1 (sut/polynomial-value 1 [1]))))
+  (testing "When polynomial is constant." (is (= 1 (sut/polynomial-value 1 [1]))))
   (testing "Or even an empty polynom."
     (is (nil? (sut/polynomial-value 2 [])))
     (is (nil? (sut/polynomial-value 2 nil))))

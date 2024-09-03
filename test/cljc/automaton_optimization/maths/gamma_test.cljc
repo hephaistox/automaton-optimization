@@ -106,8 +106,7 @@
                   :actual (sut/log-gamma idx)
                   :gap (- expected (sut/log-gamma idx))
                   :abs-gap (opt-maths/abs (- expected (sut/log-gamma idx)))
-                  :abs-gap-zero? (zero? (opt-maths/abs (- expected
-                                                          (sut/log-gamma idx))))
+                  :abs-gap-zero? (zero? (opt-maths/abs (- expected (sut/log-gamma idx))))
                   :fn (opt-maths/approx= (sut/log-gamma idx) expected 0.1)})))
        (remove nil?)))
 
@@ -115,10 +114,7 @@
   (is (empty? (->> (map vector (range 0.5 25) log-gamma-point-values)
                    remove-equals))))
 
-(deftest gamma-pinv-returns-reference-value
-  (is (= 0.02223223690217228 (sut/gamma-pinv 1E-8 4))))
+(deftest gamma-pinv-returns-reference-value (is (= 0.02223223690217228 (sut/gamma-pinv 1E-8 4))))
 
 (deftest gamma-pinv-result-is-ordered-by-p
-  (is (< (sut/gamma-pinv 1E-11 4)
-         (sut/gamma-pinv 1E-9 4)
-         (sut/gamma-pinv 1E-7 4))))
+  (is (< (sut/gamma-pinv 1E-11 4) (sut/gamma-pinv 1E-9 4) (sut/gamma-pinv 1E-7 4))))

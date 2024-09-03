@@ -10,8 +10,7 @@
   ![Aggregate entity diagram](archi/time_based/tb_var_additive.png)"
   (:require
    [automaton-optimization.time-based.impl.storage-strategy :as opt-tb-ss]
-   [automaton-optimization.time-based.protocol              :as
-                                                            opt-tb-protocol]))
+   [automaton-optimization.time-based.protocol              :as opt-tb-protocol]))
 
 (defrecord TbVarAdditive [storage default-value]
   opt-tb-protocol/TimeBased
@@ -21,20 +20,17 @@
         val
         default-value))
     (get-measures [_ buckets]
-      (mapv #(if (nil? %) default-value %)
-            (opt-tb-ss/get-measures storage buckets)))
+      (mapv #(if (nil? %) default-value %) (opt-tb-ss/get-measures storage buckets)))
     (measure [_ bucket data]
-      (TbVarAdditive. (opt-tb-ss/update-date
-                       storage
-                       bucket
-                       (fn [val]
-                         (if (nil? val) (+ data default-value) (+ val data)))
-                       [])
+      (TbVarAdditive. (opt-tb-ss/update-date storage
+                                             bucket
+                                             (fn [val]
+                                               (if (nil? val) (+ data default-value) (+ val data)))
+                                             [])
                       default-value)))
 
 (def ^:private zero-plus "Zero for the plus operator" 0)
 
 (defn make
   ([storage-strategy] (->TbVarAdditive storage-strategy zero-plus))
-  ([storage-strategy default-value]
-   (->TbVarAdditive storage-strategy default-value)))
+  ([storage-strategy default-value] (->TbVarAdditive storage-strategy default-value)))

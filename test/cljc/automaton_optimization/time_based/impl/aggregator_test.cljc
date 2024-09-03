@@ -42,8 +42,7 @@
                      :step 2
                      :start-bucket-aggregate 3
                      :end-bucket-aggregate 13}]
-          (sut/bucket-aggregates
-           [1 2 2 3 4 5 6 7 8 9 10 11 12 13 14 24 25 26 100])))
+          (sut/bucket-aggregates [1 2 2 3 4 5 6 7 8 9 10 11 12 13 14 24 25 26 100])))
    "`bucket`s are translated, the ones outsides the aggregates are forgotten, when many buckets lead to the same bucket-aggregate so it is returned once."))
 
 (deftest bucket-range-test

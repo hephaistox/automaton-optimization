@@ -10,8 +10,7 @@
 
 (defn test-rnd-range
   [stateless-prng]
-  (testing "Returns randomness range without errors."
-    (is (sut/rnd-range stateless-prng))))
+  (testing "Returns randomness range without errors." (is (sut/rnd-range stateless-prng))))
 
 (defn test-seed
   [stateless-prng]
@@ -19,8 +18,7 @@
 
 (defn test-peek-rnd
   [stateless-prng]
-  (testing "Test `peek-rnd` execution is ok."
-    (is (sut/peek-rnd stateless-prng))))
+  (testing "Test `peek-rnd` execution is ok." (is (sut/peek-rnd stateless-prng))))
 
 (defn test-next
   [stateless-prng]
@@ -45,12 +43,7 @@
   "Assemble all tests. Returns the collection of returns of all tests.
   Note that if the call is wrapped in deftest, the report will be built."
   [stateless-prng]
-  ((juxt test-jump
-         test-rnd-range
-         test-seed
-         test-peek-rnd
-         test-next
-         is-stateless-test)
+  ((juxt test-jump test-rnd-range test-seed test-peek-rnd test-next is-stateless-test)
    stateless-prng))
 
 (defrecord PRNGStatelessSTUB [vals]

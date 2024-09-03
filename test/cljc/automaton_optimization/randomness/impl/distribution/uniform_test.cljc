@@ -3,11 +3,9 @@
    #?@(:clj [[clojure.test :refer [deftest is testing]]]
        :cljs [[cljs.test :refer [deftest is testing] :include-macros true]])
    [automaton-optimization.maths                                :as opt-maths]
-   [automaton-optimization.randomness.distribution
-    :as opt-proba-distribution]
+   [automaton-optimization.randomness.distribution              :as opt-proba-distribution]
    [automaton-optimization.randomness.impl.distribution.uniform :as sut]
-   [automaton-optimization.randomness.impl.prng.xoroshiro128    :as
-                                                                opt-prng-xoro]))
+   [automaton-optimization.randomness.impl.prng.xoroshiro128    :as opt-prng-xoro]))
 
 (deftest uniform-test
   (testing "Uniform distribution returns elements in the range"

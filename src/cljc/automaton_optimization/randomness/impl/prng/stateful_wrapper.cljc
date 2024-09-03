@@ -2,8 +2,7 @@
   "Creates a stateful prng based on a stateless one."
   (:require
    [automaton-optimization.randomness.impl.prng.stateful  :as opt-prng-stateful]
-   [automaton-optimization.randomness.impl.prng.stateless :as
-                                                          opt-prng-stateless]))
+   [automaton-optimization.randomness.impl.prng.stateless :as opt-prng-stateless]))
 
 (declare make)
 
@@ -19,6 +18,4 @@
         (swap! stateless-prng opt-prng-stateless/next)
         val)))
 
-(defn make
-  [stateless-prng]
-  (->PrngStatefulImpl (atom stateless-prng) stateless-prng))
+(defn make [stateless-prng] (->PrngStatefulImpl (atom stateless-prng) stateless-prng))

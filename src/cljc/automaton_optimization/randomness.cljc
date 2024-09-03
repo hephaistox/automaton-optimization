@@ -1,28 +1,20 @@
 (ns automaton-optimization.randomness
   "Randomness for optimization projects."
   (:require
-   [automaton-optimization.randomness.distribution
-    :as opt-proba-distribution]
-   [automaton-optimization.randomness.impl.distribution.factory
-    :as opt-distribution-factory]
-   [automaton-optimization.randomness.impl.distribution.registry
-    :as opt-random-registry]
-   [automaton-optimization.randomness.impl.prng.built-in
-    :as opt-prng-built-in]
-   [automaton-optimization.randomness.impl.prng.stateful
-    :as opt-prng-stateful]
-   [automaton-optimization.randomness.impl.prng.xoroshiro128
-    :as opt-prng-xoro]))
+   [automaton-optimization.randomness.distribution               :as opt-proba-distribution]
+   [automaton-optimization.randomness.impl.distribution.factory  :as opt-distribution-factory]
+   [automaton-optimization.randomness.impl.distribution.registry :as opt-random-registry]
+   [automaton-optimization.randomness.impl.prng.built-in         :as opt-prng-built-in]
+   [automaton-optimization.randomness.impl.prng.stateful         :as opt-prng-stateful]
+   [automaton-optimization.randomness.impl.prng.xoroshiro128     :as opt-prng-xoro]))
 
 (defn build
   "Returns the `distribution` matching name `kw`, built with params `params`.
   If supplied, the `registry` is where `kw` will be searched for, search in built-in registry otherwise.
   If supplied, the `prng` will be leveraged to generate the distribution, will use xoroshiro otherwise."
-  ([registry prng kw params]
-   (opt-distribution-factory/build registry kw prng params))
+  ([registry prng kw params] (opt-distribution-factory/build registry kw prng params))
   ([registry kw params] (build registry (opt-prng-xoro/make) kw params))
-  ([kw params]
-   (build (opt-random-registry/registry) (opt-prng-xoro/make) kw params)))
+  ([kw params] (build (opt-random-registry/registry) (opt-prng-xoro/make) kw params)))
 
 (defn xoroshiro128
   "Creates a xoroshiro128 prng instance."
@@ -42,10 +34,7 @@
   (opt-prng-stateful/duplicate this))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn jump
-  "Jump to a completly different place."
-  [this]
-  (opt-prng-stateful/jump this))
+(defn jump "Jump to a completly different place." [this] (opt-prng-stateful/jump this))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn rnd-range
@@ -54,10 +43,7 @@
   (opt-prng-stateful/rnd-range this))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn seed
-  "Returns the seed of the random number generator."
-  [this]
-  (opt-prng-stateful/seed this))
+(defn seed "Returns the seed of the random number generator." [this] (opt-prng-stateful/seed this))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn reset
@@ -79,9 +65,7 @@
 (defn as-int-pair
   "Returns a pair of random integer between `[min-int; max-int[`."
   [prng min-int max-int]
-  (let [rnd1 (as-int prng min-int max-int)
-        rnd2 (as-int prng min-int max-int)]
-    [rnd1 rnd2]))
+  (let [rnd1 (as-int prng min-int max-int) rnd2 (as-int prng min-int max-int)] [rnd1 rnd2]))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn draw-ints
@@ -102,10 +86,7 @@
    (-> (build kw params)
        opt-proba-distribution/draw)))
 
-(defn distribution-registry
-  "Returns the base registry."
-  []
-  (opt-random-registry/registry))
+(defn distribution-registry "Returns the base registry." [] (opt-random-registry/registry))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn median
@@ -114,9 +95,7 @@
   ([kw params] (opt-proba-distribution/median (build kw params))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(def cumulative
-  "Returns the cumulative probability before `p`"
-  opt-proba-distribution/cumulative)
+(def cumulative "Returns the cumulative probability before `p`" opt-proba-distribution/cumulative)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (def minimum "Minimum" opt-proba-distribution/minimum)

@@ -5,22 +5,18 @@
 
   ![Aggregator entity diagram](archi/time_based/aggregator.png)"
   (:require
-   [automaton-optimization.time-based.impl.aggregator-item
-    :as opt-tb-aggregator-item]))
+   [automaton-optimization.time-based.impl.aggregator-item :as opt-tb-aggregator-item]))
 
 (defn- by-bucket
   "Find the `bucket` matching `aggregate`."
   [aggregator bucket]
-  (-> (filter (partial opt-tb-aggregator-item/concerns-bucket? bucket)
-              aggregator)
+  (-> (filter (partial opt-tb-aggregator-item/concerns-bucket? bucket) aggregator)
       first))
 
 (defn- by-aggregate
   "Find the `aggregate` matching the `bucket`."
   [aggregator aggregate]
-  (-> (filter (partial opt-tb-aggregator-item/concerns-bucket-aggregate?
-                       aggregate)
-              aggregator)
+  (-> (filter (partial opt-tb-aggregator-item/concerns-bucket-aggregate? aggregate) aggregator)
       first))
 
 (defn bucket-aggregate

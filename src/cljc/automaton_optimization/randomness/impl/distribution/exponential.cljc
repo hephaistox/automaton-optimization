@@ -4,15 +4,12 @@
   See the [wiki article](https://en.wikipedia.org/wiki/Exponential_distribution)."
   (:require
    [automaton-optimization.maths                         :as opt-maths]
-   [automaton-optimization.randomness.distribution       :as
-                                                         opt-proba-distribution]
-   [automaton-optimization.randomness.impl.prng.stateful :as
-                                                         opt-prng-stateful]))
+   [automaton-optimization.randomness.distribution       :as opt-proba-distribution]
+   [automaton-optimization.randomness.impl.prng.stateful :as opt-prng-stateful]))
 
 (defrecord Exponential [prng rate]
   opt-proba-distribution/Distribution
-    (draw [_]
-      (/ (- (opt-maths/log (opt-prng-stateful/as-double prng 0.0 1.0))) rate))
+    (draw [_] (/ (- (opt-maths/log (opt-prng-stateful/as-double prng 0.0 1.0))) rate))
     (median [_] (/ (- (opt-maths/log 0.5)) rate))
     (cumulative [_ p] (- 1.0 (opt-maths/exp (- (* rate p)))))
     (minimum [_] 0)

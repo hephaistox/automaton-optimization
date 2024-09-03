@@ -12,8 +12,7 @@
                      []
                      [#::opt-tb{:start-bucket 10}]
                      [#::opt-tb{:start-bucket 10} #::opt-tb{:start-bucket 15}]
-                     [#::opt-tb{:start-bucket 10}
-                      #::opt-tb{:start-bucket 15}]]))
+                     [#::opt-tb{:start-bucket 10} #::opt-tb{:start-bucket 15}]]))
       "Simple forms of valid `aggregates`")
   (is (every? some?
               (mapv sut/validate
@@ -24,16 +23,13 @@
       "Invalid `aggregates`"))
 
 (deftest default-start-bucket-of-first-aggregate-test
-  (is (= [#::opt-tb{:start-bucket 0}]
-         (sut/default-start-bucket-of-first-aggregate [{}]))
+  (is (= [#::opt-tb{:start-bucket 0}] (sut/default-start-bucket-of-first-aggregate [{}]))
       "Non set `start-bucket` is defaulted to `start-bucket`")
   (is (= [#::opt-tb{:start-bucket 1}]
-         (sut/default-start-bucket-of-first-aggregate [#::opt-tb{:start-bucket
-                                                                 1}]))
+         (sut/default-start-bucket-of-first-aggregate [#::opt-tb{:start-bucket 1}]))
       "If set, the `start-bucket` is not modified.")
   (is (= [#::opt-tb{:start-bucket 1} #::opt-tb{}]
-         (sut/default-start-bucket-of-first-aggregate
-          [#::opt-tb{:start-bucket 1} #::opt-tb{}]))
+         (sut/default-start-bucket-of-first-aggregate [#::opt-tb{:start-bucket 1} #::opt-tb{}]))
       "Next ones are not modified."))
 
 (deftest make-aggregator-test
@@ -50,8 +46,7 @@
                     :start-bucket-aggregate 0}]
          (sut/make-aggregator [#::opt-tb{:start-bucket 2}]))
       "An aggregate with one simple endless aggregate.")
-  (is (= [] (sut/make-aggregator [#::opt-tb{}]))
-      "An aggregate with no `start-bucket` is removed.")
+  (is (= [] (sut/make-aggregator [#::opt-tb{}])) "An aggregate with no `start-bucket` is removed.")
   (is (= [#::opt-tb{:start-bucket 2
                     :end-bucket 5
                     :step 1
