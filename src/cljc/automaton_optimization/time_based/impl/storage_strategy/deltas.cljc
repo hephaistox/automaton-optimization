@@ -9,14 +9,11 @@
     (assoc-date [_ k v] (DeltaStrategy. (assoc deltas k v)))
     (capacity [_] (count deltas))
     (get-after [this k]
-      (let [k-after (utils-map/get-key-or-after deltas k)]
-        (opt-tb-ss/get-exact this k-after)))
+      (let [k-after (utils-map/get-key-or-after deltas k)] (opt-tb-ss/get-exact this k-after)))
     (get-before [this k]
-      (let [k-before (utils-map/get-key-or-before deltas k)]
-        (opt-tb-ss/get-exact this k-before)))
+      (let [k-before (utils-map/get-key-or-before deltas k)] (opt-tb-ss/get-exact this k-before)))
     (get-exact [_ k] (get deltas k))
-    (get-measures [this buckets]
-      (mapv (fn [k] (opt-tb-ss/get-exact this k)) buckets))
+    (get-measures [this buckets] (mapv (fn [k] (opt-tb-ss/get-exact this k)) buckets))
     (nb-set [_] (count deltas))
     (range-dates [_] (let [v (keys deltas)] [(apply min v) (apply max v)]))
     (update-date [_ k f args] (DeltaStrategy. (apply update deltas k f args))))

@@ -1,7 +1,6 @@
 (ns automaton-optimization.time-based.impl.storage-strategy.contiguous-test
   (:require
-   [automaton-optimization.time-based.impl.storage-strategy
-    :as opt-tb-ss]
+   [automaton-optimization.time-based.impl.storage-strategy            :as opt-tb-ss]
    [automaton-optimization.time-based.impl.storage-strategy.contiguous :as sut]
    #?(:clj [clojure.test :refer [deftest is testing]]
       :cljs [cljs.test :refer [deftest is testing] :include-macros true])))
@@ -18,11 +17,9 @@
 
 (deftest assoc-date-test
   (testing "Contiguous is updated."
-    (is (= [nil :v nil]
-           (:contiguous (opt-tb-ss/assoc-date (sut/make 3) 1 :v)))))
+    (is (= [nil :v nil] (:contiguous (opt-tb-ss/assoc-date (sut/make 3) 1 :v)))))
   (testing "An element outside the bounds extends the contiguous."
-    (is (= [nil nil nil :v nil nil]
-           (:contiguous (opt-tb-ss/assoc-date (sut/make 3) 3 :v)))))
+    (is (= [nil nil nil :v nil nil] (:contiguous (opt-tb-ss/assoc-date (sut/make 3) 3 :v)))))
   (testing "A non existing element turned into a non nil value."
     (is (= 1 (opt-tb-ss/nb-set (opt-tb-ss/assoc-date (sut/make 3) 3 :v)))))
   (testing "An already existing element is not changing the number of elements."

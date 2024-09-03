@@ -12,20 +12,14 @@
   opt-tb-protocol/TimeBased
     (default [_] (opt-tb-protocol/TimeBased tb-var))
     (get-measure [_ bucket]
-      (when-let [bucket-aggregate (opt-tb-aggregator/bucket-aggregate aggregator
-                                                                      bucket)]
+      (when-let [bucket-aggregate (opt-tb-aggregator/bucket-aggregate aggregator bucket)]
         (opt-tb-protocol/get-measure tb-var bucket-aggregate)))
     (get-measures [_ buckets]
       (->> (opt-tb-aggregator/bucket-aggregates aggregator buckets)
            (opt-tb-protocol/get-measures tb-var)))
     (measure [this bucket value]
-      (if-let [bucket-aggregate (opt-tb-aggregator/bucket-aggregate aggregator
-                                                                    bucket)]
-        (TbVarAggregated.
-         (opt-tb-protocol/measure tb-var bucket-aggregate value)
-         aggregator)
+      (if-let [bucket-aggregate (opt-tb-aggregator/bucket-aggregate aggregator bucket)]
+        (TbVarAggregated. (opt-tb-protocol/measure tb-var bucket-aggregate value) aggregator)
         this)))
 
-(defn make
-  [time-based translations]
-  (->TbVarAggregated time-based translations))
+(defn make [time-based translations] (->TbVarAggregated time-based translations))

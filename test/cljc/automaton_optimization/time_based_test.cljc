@@ -98,8 +98,7 @@
                                        :end-bucket 20
                                        :step 5}]
                                sut/aggregator
-                               (sut/tb-var-aggregated
-                                (sut/tb-var-additive-deltas))
+                               (sut/tb-var-aggregated (sut/tb-var-additive-deltas))
                                (sut/measure 10 3)
                                (sut/measure 14 4))]
            (mapv #(sut/get-measure tb-var-agg1 %) [9 10 11 14 15 16])))))

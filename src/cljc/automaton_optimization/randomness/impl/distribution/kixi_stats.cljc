@@ -18,8 +18,7 @@
 (defn make-bernoulli
   "Returns a Bernoulli distribution. `{:p ∈ [0 1]}`."
   [p]
-  (when (and (number? p) (<= 0.0 p 1.0))
-    (->Kixi (kixi-distribution/bernoulli {:p p}))))
+  (when (and (number? p) (<= 0.0 p 1.0)) (->Kixi (kixi-distribution/bernoulli {:p p}))))
 
 (defn make-beta
   "Returns a beta distribution. `{:alpha ∈ ℝ > 0, :beta ∈ ℝ > 0}`."
@@ -31,8 +30,7 @@
 (defn make-beta-binomial
   "Returns a beta distribution. `{:n ∈ ℕ > 0, :alpha ∈ ℝ > 0, :beta ∈ ℝ > 0}`."
   [n alpha beta]
-  (when
-    (and (pos-int? n) (number? alpha) (number? beta) (pos? alpha) (pos? beta))
+  (when (and (pos-int? n) (number? alpha) (number? beta) (pos? alpha) (pos? beta))
     (->Kixi (kixi.stats.distribution/beta-binomial {:n n
                                                     :alpha alpha
                                                     :beta beta}))))
@@ -78,8 +76,7 @@
 (defn make-exponential
   "Returns an exponential distribution. `{:rate ∈ ℝ > 0}`."
   [rate]
-  (when (and (number? rate) (pos? rate))
-    (->Kixi (kixi-distribution/exponential {:rate rate}))))
+  (when (and (number? rate) (pos? rate)) (->Kixi (kixi-distribution/exponential {:rate rate}))))
 
 (defn make-f
   "Returns an F distribution. `{:d1 ∈ ℝ > 0, :d2 ∈ ℝ > 0}`."

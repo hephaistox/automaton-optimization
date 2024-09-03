@@ -92,12 +92,11 @@
                                                    :step 2
                                                    :start-bucket-aggregate 30
                                                    :end-bucket-aggregate 33})))
-  (is (empty? (sut/bucket-to-bucket-aggregate
-               #::opt-tb{:start-bucket 10
-                         :end-bucket 10
-                         :step 2
-                         :start-bucket-aggregate 30
-                         :end-bucket-aggregate 30}))
+  (is (empty? (sut/bucket-to-bucket-aggregate #::opt-tb{:start-bucket 10
+                                                        :end-bucket 10
+                                                        :step 2
+                                                        :start-bucket-aggregate 30
+                                                        :end-bucket-aggregate 30}))
       "Empty aggregate is ok.")
   (is
    (= [30 30]
@@ -132,8 +131,7 @@
    (= [false false true true false false false]
       (mapv #(sut/concerns-bucket-aggregate? %
                                              #::opt-tb{:start-bucket-aggregate 3
-                                                       :end-bucket-aggregate
-                                                       30})
+                                                       :end-bucket-aggregate 30})
             [0 2 3 29 30 31 1000]))
    "An `aggregator` with `start-bucket-aggregate` and `end-bucket-aggregate` is concerned with `[start-bucket-aggregate;end-bucket-aggregate[` and only that.")
   (is

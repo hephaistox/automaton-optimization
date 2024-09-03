@@ -59,9 +59,9 @@ This section details the features of the randomness feature. The lib offers thre
 Pseudo-random number generators simulate the generation of random phenomenons. The `automaton-optimization` library is shipped with some already implemented prng :
 * `xoroshiro128` which is a proxy for the excellent `xoroshito` library.
    ```clojure
-(require '[automaton-optimization.randomness.impl.prng.xoroshiro128 :as opt-xoro]
+(require '[automaton-optimization.randomness.impl.prng.xoroshiro128 :as opt-prng-xoro]
          '[automaton-optimization.randomness.prng :as opt-prng])
-(-> (opt-xoro/make)
+(-> (opt-prng-xoro/make)
     opt-prng/rnd)
    ```
 * `built-in` which leverages the `prng` shipped with the platform executing your Clojure code (java, javascript, ...).

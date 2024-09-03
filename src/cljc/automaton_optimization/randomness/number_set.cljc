@@ -20,13 +20,11 @@
   Execution time mean : 76.108405 µs, std-dev = 1.321352 ns"
   [coll]
   (let [[sum-of-squares sum-of n]
-        (reduce
-         (fn [[^double sum-of-squares ^double sum-of k] ^double elt]
-           [(+ sum-of-squares (opt-maths/square elt)) (+ sum-of elt) (inc k)])
-         [0 0 0]
-         coll)]
-    (when-not (or (nil? n) (zero? n))
-      (- (/ sum-of-squares n) (opt-maths/square (/ sum-of n))))))
+        (reduce (fn [[^double sum-of-squares ^double sum-of k] ^double elt]
+                  [(+ sum-of-squares (opt-maths/square elt)) (+ sum-of elt) (inc k)])
+                [0 0 0]
+                coll)]
+    (when-not (or (nil? n) (zero? n)) (- (/ sum-of-squares n) (opt-maths/square (/ sum-of n))))))
 
 (defn standard-deviation
   "Returns the standard deviation of the collection `coll`."
@@ -39,30 +37,25 @@
   (let [sorted (sort coll)
         n (count sorted)
         i (bit-shift-right n 1)]
-    (if (odd? n)
-      (nth sorted i)
-      (average [(nth sorted (dec i)) (nth sorted i)]))))
+    (if (odd? n) (nth sorted i) (average [(nth sorted (dec i)) (nth sorted i)]))))
 
 (defn midrange
   "Find the midrange of the collection `coll`."
   [coll]
   (when-not (empty? coll)
-    (average [(reduce opt-maths/min-double coll)
-              (reduce opt-maths/max-double coll)])))
+    (average [(reduce opt-maths/min-double coll) (reduce opt-maths/max-double coll)])))
 
 (defn midrange-double
   "Find the midrange of the collection `coll`."
   [coll]
   (when-not (empty? coll)
-    (average [(reduce opt-maths/min-double coll)
-              (reduce opt-maths/max-double coll)])))
+    (average [(reduce opt-maths/min-double coll) (reduce opt-maths/max-double coll)])))
 
 (defn midrange-long
   "Find the midrange of the collection `coll`."
   [coll]
   (when-not (empty? coll)
-    (average [(reduce opt-maths/min-long coll)
-              (reduce opt-maths/max-long coll)])))
+    (average [(reduce opt-maths/min-long coll) (reduce opt-maths/max-long coll)])))
 
 (defn erf
   "erf polynomial approximation of `x`.  Maximum error is `1.5e-7.`
@@ -74,7 +67,5 @@
         a [1.061405429 -1.453152027 1.421413741 -0.284496736 0.254829592 0.0]
         p 0.3275911
         t (/ (+ 1.0 (* p x)))
-        value (- 1.0
-                 (* (opt-maths/polynomial-value t a)
-                    (opt-maths/exp (- (* x x)))))]
+        value (- 1.0 (* (opt-maths/polynomial-value t a) (opt-maths/exp (- (* x x)))))]
     (* sign value)))

@@ -8,8 +8,7 @@
 
 (defn- bucket-aggregate*
   "`bucket-aggregate` formula based on a `aggregator`."
-  [{:automaton-optimization.time-based/keys
-    [start-bucket step start-bucket-aggregate]
+  [{:automaton-optimization.time-based/keys [start-bucket step start-bucket-aggregate]
     :as _aggregator}
    bucket]
   (+ start-bucket-aggregate (quot (- bucket start-bucket) step)))
@@ -19,8 +18,7 @@
   [{:automaton-optimization.time-based/keys [start-bucket end-bucket]
     :as aggregator}
    bucket]
-  (when (or (nil? end-bucket)
-            (and (<= start-bucket bucket) (< bucket end-bucket)))
+  (when (or (nil? end-bucket) (and (<= start-bucket bucket) (< bucket end-bucket)))
     (bucket-aggregate* aggregator bucket)))
 
 (defn bucket-range
@@ -32,8 +30,7 @@
   (when (or (nil? end-bucket-aggregate)
             (and (<= start-bucket-aggregate bucket-aggregate)
                  (< bucket-aggregate end-bucket-aggregate)))
-    (let [start-bucket-range
-          (+ start-bucket (* step (- bucket-aggregate start-bucket-aggregate)))]
+    (let [start-bucket-range (+ start-bucket (* step (- bucket-aggregate start-bucket-aggregate)))]
       [start-bucket-range (+ start-bucket-range step)])))
 
 (defn calculate-end-bucket-aggregate
@@ -41,16 +38,14 @@
   [{:automaton-optimization.time-based/keys [end-bucket]
     :as aggregator}]
   (cond-> aggregator
-    (some? end-bucket) (assoc
-                        :automaton-optimization.time-based/end-bucket-aggregate
-                        (bucket-aggregate* aggregator end-bucket))))
+    (some? end-bucket) (assoc :automaton-optimization.time-based/end-bucket-aggregate
+                              (bucket-aggregate* aggregator end-bucket))))
 
 (defn build
   "Buids and returns an `aggregator`, based on `start-bucket-aggregate` `start-bucket` `end-bucket` `step`."
   [start-bucket-aggregate aggregator]
   (-> aggregator
-      (assoc :automaton-optimization.time-based/start-bucket-aggregate
-             start-bucket-aggregate)
+      (assoc :automaton-optimization.time-based/start-bucket-aggregate start-bucket-aggregate)
       calculate-end-bucket-aggregate))
 
 (defn bucket-to-bucket-aggregate
@@ -60,8 +55,7 @@
     [start-bucket-aggregate step end-bucket-aggregate start-bucket end-bucket]
     :as _aggregator}]
   (take (- end-bucket start-bucket)
-        (mapcat (partial repeat step)
-         (range start-bucket-aggregate end-bucket-aggregate))))
+        (mapcat (partial repeat step) (range start-bucket-aggregate end-bucket-aggregate))))
 
 (defn concerns-bucket?
   "Returns `true` if the `bucket` is between `start-bucket` and `end-bucket`.
@@ -79,9 +73,7 @@
    * the `start-bucket-aggregate` field is mandatory in the definition
    * the `end-bucket-aggregate` field is optional as the aggregate could end at infinite"
   [bucket-aggregate
-   {:automaton-optimization.time-based/keys [start-bucket-aggregate
-                                             end-bucket-aggregate]
+   {:automaton-optimization.time-based/keys [start-bucket-aggregate end-bucket-aggregate]
     :as _aggregator}]
   (and (<= start-bucket-aggregate bucket-aggregate)
-       (or (nil? end-bucket-aggregate)
-           (< bucket-aggregate end-bucket-aggregate))))
+       (or (nil? end-bucket-aggregate) (< bucket-aggregate end-bucket-aggregate))))

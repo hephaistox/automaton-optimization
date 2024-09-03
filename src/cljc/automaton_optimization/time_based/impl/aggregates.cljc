@@ -9,8 +9,7 @@
   (:require
    [automaton-core.adapters.schema                         :as core-schema]
    [automaton-optimization.time-based.impl.aggregate       :as opt-tb-aggregate]
-   [automaton-optimization.time-based.impl.aggregator-item
-    :as opt-tb-aggregator-item]))
+   [automaton-optimization.time-based.impl.aggregator-item :as opt-tb-aggregator-item]))
 
 (defn- sort-start-bucket
   "Sort the `aggregates` with their `start-bucket`."
@@ -30,9 +29,9 @@
   "Is empty if `aggregates` is valid.
   Returns errors otherwise."
   [aggregates]
-  (let [validations (core-schema/validate-data-humanize
-                     [:maybe [:sequential opt-tb-aggregate/schema]]
-                     aggregates)]
+  (let [validations (core-schema/validate-data-humanize [:maybe
+                                                         [:sequential opt-tb-aggregate/schema]]
+                                                        aggregates)]
     (when-not (empty? validations) validations)))
 
 (defn default-start-bucket-of-first-aggregate
@@ -42,8 +41,7 @@
               (fn [{:automaton-optimization.time-based/keys [start-bucket]
                     :as aggregate}]
                 (cond-> aggregate
-                  (nil? start-bucket)
-                  (assoc :automaton-optimization.time-based/start-bucket 0))))))
+                  (nil? start-bucket) (assoc :automaton-optimization.time-based/start-bucket 0))))))
 
 (defn remove-aggregate-wo-start-bucket
   [aggregates]
@@ -74,10 +72,8 @@
        set-end-bucket
        (reduce
         (fn [[start-bucket-aggregate translations] aggregate]
-          (let [aggregator-item
-                (opt-tb-aggregator-item/build start-bucket-aggregate aggregate)
-                {:automaton-optimization.time-based/keys [end-bucket-aggregate]}
-                aggregator-item]
+          (let [aggregator-item (opt-tb-aggregator-item/build start-bucket-aggregate aggregate)
+                {:automaton-optimization.time-based/keys [end-bucket-aggregate]} aggregator-item]
             [end-bucket-aggregate (conj translations aggregator-item)]))
         [0 []])
        second))

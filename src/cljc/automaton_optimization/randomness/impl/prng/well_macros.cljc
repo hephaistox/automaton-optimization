@@ -6,8 +6,7 @@
   `(let [n# ~b]
      (if (neg? n#)
        (bit-shift-left ~a (- n#))
-       (bit-and (bit-shift-right Integer/MAX_VALUE (dec n#))
-                (bit-shift-right ~a n#)))))
+       (bit-and (bit-shift-right Integer/MAX_VALUE (dec n#)) (bit-shift-right ~a n#)))))
 
 (defmacro unsign
   "Convert a result based on a signed integer, and convert it to what it would have been for an unsigned integer."

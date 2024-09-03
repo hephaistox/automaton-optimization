@@ -207,8 +207,7 @@
   * `x2` if not a number (typically nil), is interprated like a non ending interval (infinite)"
   [a b x1 x2 x]
   (cond
-    (and (or (not (number? x1)) (<= x1 x)) (or (not (number? x2)) (< x x2)))
-    (+ (* x a) b)
+    (and (or (not (number? x1)) (<= x1 x)) (or (not (number? x2)) (< x x2))) (+ (* x a) b)
     :else nil))
 
 ;; Constants leveraging functions
@@ -222,16 +221,14 @@
   (fn
     ([] infinity)
     ([acc] (when-not (infinite? acc) acc))
-    ([^double acc e]
-     (if (nil? e) acc (let [e (double e)] (clojure.core/min acc e))))))
+    ([^double acc e] (if (nil? e) acc (let [e (double e)] (clojure.core/min acc e))))))
 
 (def max-double
   "Like `clojure.core/max,` but transducer and nil-friendly."
   (fn
     ([] negative-infinity)
     ([acc] (when-not (infinite? acc) acc))
-    ([^double acc e]
-     (if (nil? e) acc (let [e (double e)] (clojure.core/max acc e))))))
+    ([^double acc e] (if (nil? e) acc (let [e (double e)] (clojure.core/max acc e))))))
 
 (def min
   "Like `clojure.core/min,` but transducer and nil-friendly."
@@ -252,16 +249,14 @@
   (fn
     ([] infinity)
     ([acc] (when-not (infinite? acc) acc))
-    ([^Long acc e]
-     (if (nil? e) acc (let [e (long e)] (clojure.core/min acc e))))))
+    ([^Long acc e] (if (nil? e) acc (let [e (long e)] (clojure.core/min acc e))))))
 
 (def max-long
   "Like clojure.core/max, but transducer and nil-friendly."
   (fn
     ([] negative-infinity)
     ([acc] (when-not (infinite? acc) acc))
-    ([^Long acc e]
-     (if (nil? e) acc (let [e (long e)] (clojure.core/max acc e))))))
+    ([^Long acc e] (if (nil? e) acc (let [e (long e)] (clojure.core/max acc e))))))
 
 (defn clamp
   "Returns the clamped value between `lower` and `upper`."
@@ -289,8 +284,7 @@
 (defn proportion
   "Calculates the proportion of inputs for which `pred` returns true."
   [f coll]
-  (let [[n d] (reduce (proportion-xf f) [0 0] coll)]
-    (when (pos? d) (double (/ n d)))))
+  (let [[n d] (reduce (proportion-xf f) [0 0] coll)] (when (pos? d) (double (/ n d)))))
 
 ;; Polynomial
 (defn polynomial-value
