@@ -11,8 +11,7 @@
   ![tb var latest entity diagram](archi/time_based/tb_var_latest.png)"
   (:require
    [automaton-optimization.time-based.impl.storage-strategy :as opt-tb-ss]
-   [automaton-optimization.time-based.protocol              :as
-                                                            opt-tb-protocol]))
+   [automaton-optimization.time-based.protocol              :as opt-tb-protocol]))
 
 (defrecord TbVarLatest [storage default-value]
   opt-tb-protocol/TimeBased
@@ -21,8 +20,7 @@
       (if-let [val (opt-tb-ss/get-before storage bucket)]
         val
         default-value))
-    (get-measures [this buckets]
-      (mapv (fn [v] (opt-tb-protocol/get-measure this v)) buckets))
+    (get-measures [this buckets] (mapv (fn [v] (opt-tb-protocol/get-measure this v)) buckets))
     (measure [_ bucket data]
       (TbVarLatest. (opt-tb-ss/assoc-date storage bucket data) default-value)))
 

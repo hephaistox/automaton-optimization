@@ -6,17 +6,14 @@
    [automaton-optimization.randomness.number-set :as sut]))
 
 (deftest average-test
-  (testing "Empty set returns nil"
-    (is (nil? (sut/average nil)))
-    (is (nil? (sut/average []))))
+  (testing "Empty set returns nil" (is (nil? (sut/average nil))) (is (nil? (sut/average []))))
   (testing "Simple average of a collection is found"
     (is (= 5 (sut/average [2 4 4 4 5 5 7 9])))
     (is (= 14 (sut/average [14])))
     (is (= 8 (sut/average [7 9])))
     (is (= 8.0 (sut/average [7.5 8.5]))))
   (testing "Simple Gauss sum is calculated"
-    (let [n 1000000]
-      (is (= (/ (inc n) 2) (sut/average (take n (iterate inc 1))))))))
+    (let [n 1000000] (is (= (/ (inc n) 2) (sut/average (take n (iterate inc 1))))))))
 
 (comment
   ;; To measure variance computation time
@@ -34,16 +31,13 @@
   (testing "Empty set has no standard deviation"
     (is (nil? (sut/standard-deviation nil)))
     (is (nil? (sut/standard-deviation []))))
-  (testing "Singleton has a zero stdev"
-    (is (zero? (sut/standard-deviation [4]))))
-  (testing "Simple example"
-    (is (= 2.0 (sut/standard-deviation [2 4 4 4 5 5 7 9])))))
+  (testing "Singleton has a zero stdev" (is (zero? (sut/standard-deviation [4]))))
+  (testing "Simple example" (is (= 2.0 (sut/standard-deviation [2 4 4 4 5 5 7 9])))))
 
 (deftest median-test
   (testing "Median of an odd number of doubles is the one in the middle."
     (is (= 14 (sut/median [1 10 14 17 2000]))))
-  (testing
-    "Median of an even number of numbers is the average of the two middle numbers."
+  (testing "Median of an even number of numbers is the average of the two middle numbers."
     (is (= 15 (sut/median [1 10 20 1000])))))
 
 (deftest midrange-test
@@ -59,8 +53,7 @@
 (comment
   ;; Performance measurements of benchmark function
   (crit/bench (sut/average (take 1000 (iterate inc 1))))
-  (crit/report-result (crit/benchmark (sut/average (take 1000 (iterate inc 1)))
-                                      {:verbose true}))
+  (crit/report-result (crit/benchmark (sut/average (take 1000 (iterate inc 1))) {:verbose true}))
   ;
 )
 

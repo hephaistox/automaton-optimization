@@ -4,8 +4,7 @@
    #?@(:clj [[clojure.test :refer [deftest is testing]]]
        :cljs [[cljs.test :refer [deftest is testing] :include-macros true]])
    [automaton-optimization.randomness.impl.distribution.uniform :as opt-uniform]
-   [automaton-optimization.randomness.impl.prng.xoroshiro128    :as
-                                                                opt-prng-xoro]))
+   [automaton-optimization.randomness.impl.prng.xoroshiro128    :as opt-prng-xoro]))
 
 (deftest iqr-test
   (testing "Inter quartile of uniform distribution is ok."

@@ -10,8 +10,8 @@
   Size is increased with at least `chunk-size` element after it."
   [contiguous k chunk-size]
   (vec (cond-> contiguous
-         (>= k (count contiguous))
-         (concat (repeat (+ chunk-size 1 (- k (count contiguous))) nil)))))
+         (>= k (count contiguous)) (concat (repeat (+ chunk-size 1 (- k (count contiguous)))
+                                                   nil)))))
 
 (defrecord ContiguousStrategy [contiguous n chunk-size]
   opt-tb-ss/BucketData
@@ -30,8 +30,7 @@
            (filter some?)
            first))
     (get-exact [_ k] (get contiguous k))
-    (get-measures [this buckets]
-      (map (fn [k] (opt-tb-ss/get-exact this k)) buckets))
+    (get-measures [this buckets] (map (fn [k] (opt-tb-ss/get-exact this k)) buckets))
     (nb-set [_] n)
     (range-dates [this] [(->> (range 0 (count contiguous))
                               (filter (partial opt-tb-ss/get-exact this))
@@ -42,8 +41,6 @@
     (update-date [_ k f args]
       (if-let [v (second (find contiguous k))]
         (ContiguousStrategy. (assoc contiguous k (apply f v args)) n chunk-size)
-        (ContiguousStrategy. (assoc contiguous k (apply f nil args))
-                             (inc n)
-                             chunk-size))))
+        (ContiguousStrategy. (assoc contiguous k (apply f nil args)) (inc n) chunk-size))))
 
 (defn make [n] (->ContiguousStrategy (vec (repeat n nil)) 0 2))

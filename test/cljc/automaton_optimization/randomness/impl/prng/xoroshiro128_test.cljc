@@ -2,12 +2,9 @@
   (:require
    #?(:clj [clojure.test :refer [deftest is testing]]
       :cljs [cljs.test :refer [deftest is testing] :include-macros true])
-   [automaton-optimization.randomness.impl.prng.stateful
-    :as opt-prng-stateful]
-   [automaton-optimization.randomness.impl.prng.stateless-test
-    :as opt-prng-stateless-test]
-   [automaton-optimization.randomness.impl.prng.tests          :as
-                                                               opt-prng-tests]
+   [automaton-optimization.randomness.impl.prng.stateful       :as opt-prng-stateful]
+   [automaton-optimization.randomness.impl.prng.stateless-test :as opt-prng-stateless-test]
+   [automaton-optimization.randomness.impl.prng.tests          :as opt-prng-tests]
    [automaton-optimization.randomness.impl.prng.xoroshiro128   :as sut]))
 
 (deftest xoro-test

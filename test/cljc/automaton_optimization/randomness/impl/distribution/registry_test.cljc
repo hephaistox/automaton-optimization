@@ -1,7 +1,6 @@
 (ns automaton-optimization.randomness.impl.distribution.registry-test
   (:require
-   [automaton-core.adapters.schema                               :as
-                                                                 core-schema]
+   [automaton-core.adapters.schema                               :as core-schema]
    #?@(:clj [[clojure.test :refer [deftest is]]]
        :cljs [[cljs.test :refer [deftest is] :include-macros true]])
    [automaton-optimization.randomness.impl.distribution.registry :as sut]))

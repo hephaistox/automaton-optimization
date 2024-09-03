@@ -4,8 +4,7 @@
   (:require
    [automaton-core.utils.call-limit                      :as core-call-limit]
    [automaton-optimization.maths                         :as opt-maths]
-   [automaton-optimization.randomness.impl.prng.stateful :as
-                                                         opt-prng-stateful]))
+   [automaton-optimization.randomness.impl.prng.stateful :as opt-prng-stateful]))
 
 (defrecord Builtin [seed]
   opt-prng-stateful/PRNG
@@ -22,6 +21,4 @@
 
 (defn make
   ([seed] (core-call-limit/allow-one-only-call #(->Builtin seed) ::are-global))
-  ([]
-   (core-call-limit/allow-one-only-call #(->Builtin (rand-int 1000000))
-                                        ::are-global)))
+  ([] (core-call-limit/allow-one-only-call #(->Builtin (rand-int 1000000)) ::are-global)))

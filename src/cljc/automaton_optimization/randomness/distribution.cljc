@@ -1,5 +1,4 @@
-(ns automaton-optimization.randomness.distribution
-  "Probabilistic distributions.")
+(ns automaton-optimization.randomness.distribution "Probabilistic distributions.")
 
 (defprotocol Distribution
   (draw [this]

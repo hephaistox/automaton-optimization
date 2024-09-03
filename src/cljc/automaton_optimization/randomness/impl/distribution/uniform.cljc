@@ -2,10 +2,8 @@
   "An uniform distribution, returning a double between `a` and `b`."
   (:require
    [automaton-optimization.maths                         :as opt-maths]
-   [automaton-optimization.randomness.distribution       :as
-                                                         opt-proba-distribution]
-   [automaton-optimization.randomness.impl.prng.stateful :as
-                                                         opt-prng-stateful]))
+   [automaton-optimization.randomness.distribution       :as opt-proba-distribution]
+   [automaton-optimization.randomness.impl.prng.stateful :as opt-prng-stateful]))
 
 (defrecord Uniform [prng a b width]
   opt-proba-distribution/Distribution
@@ -24,6 +22,4 @@
         (= p 1.0) b
         :else (+ a (* p width)))))
 
-(defn make
-  [prng a b]
-  (when (every? number? [a b]) (->Uniform prng a b (double (- b a)))))
+(defn make [prng a b] (when (every? number? [a b]) (->Uniform prng a b (double (- b a)))))

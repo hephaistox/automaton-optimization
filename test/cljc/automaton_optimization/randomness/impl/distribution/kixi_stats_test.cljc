@@ -1,7 +1,6 @@
 (ns automaton-optimization.randomness.impl.distribution.kixi-stats-test
   (:require
-   [automaton-optimization.randomness.distribution
-    :as opt-proba-distribution]
+   [automaton-optimization.randomness.distribution                 :as opt-proba-distribution]
    [automaton-optimization.randomness.impl.distribution.kixi-stats :as sut]
    #?@(:clj [[clojure.test :refer [deftest is testing]]]
        :cljs [[cljs.test :refer [deftest is testing] :include-macros true]])))

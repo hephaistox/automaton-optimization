@@ -5,10 +5,8 @@
   (:refer-clojure :exclude [next])
   (:require
    [automaton-optimization.maths                                 :as opt-maths]
-   [automaton-optimization.randomness.impl.prng.stateful-wrapper
-    :as opt-stateful-wrapper]
-   [automaton-optimization.randomness.impl.prng.stateless
-    :as opt-prng-stateless]
+   [automaton-optimization.randomness.impl.prng.stateful-wrapper :as opt-stateful-wrapper]
+   [automaton-optimization.randomness.impl.prng.stateless        :as opt-prng-stateless]
    [xoroshiro128.core                                            :as xoro]))
 
 (defrecord Xoroshiro128 [xoro-object]
@@ -23,8 +21,7 @@
   ([seed] (->Xoroshiro128 (xoro/xoroshiro128+ seed)))
   ([]
    (->Xoroshiro128 (xoro/xoroshiro128+ #?(:cljs (.now js/Date)
-                                          :clj (. System
-                                                  (currentTimeMillis)))))))
+                                          :clj (. System (currentTimeMillis)))))))
 
 (defn make
   ([seed] (opt-stateful-wrapper/make (make-stateless seed)))
