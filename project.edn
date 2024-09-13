@@ -1,2 +1,4 @@
 {:app-name "automaton-optimization"
- :code {:forbidden-words #{"DONE" "FIXME" "NOTE" "TODO" "automaton-build" "landing" "tap>"}}}
+ :code {:forbidden-words #{"DONE" "FIXME" "NOTE" "TODO" "automaton-build" "landing" "tap>"}}
+ :frontend {:run-aliases [:ltest :browser-test]}
+ :publication {:as-lib org.clojars.hephaistox/automaton-optimization}}

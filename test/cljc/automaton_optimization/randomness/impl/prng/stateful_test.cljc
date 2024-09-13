@@ -1,4 +1,3 @@
-#_{:heph-ignore {:reports false}}
 (ns automaton-optimization.randomness.impl.prng.stateful-test
   (:require
    #?@(:clj [[clojure.test :refer [is testing deftest]]]
