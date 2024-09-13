@@ -1,4 +1,3 @@
-#_{:heph-ignore {:reports false}}
 (ns automaton-optimization.time-based
   "`time-based` stores a `value` at a `bucket` in time.
 
