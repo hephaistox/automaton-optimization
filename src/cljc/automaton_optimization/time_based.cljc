@@ -18,7 +18,6 @@
    [automaton-optimization.time-based.impl.var-latest                  :as opt-tb-var-latest]
    [automaton-optimization.time-based.protocol                         :as opt-tb-protocol]))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn tb-var-additive-deltas
   "Creates an `additive` `tb-var` storing the values with `deltas`.
 
@@ -35,7 +34,6 @@
   ([default-value] (opt-tb-var-additive/make (opt-tb-deltas/make) default-value))
   ([] (opt-tb-var-additive/make (opt-tb-deltas/make))))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn tb-var-additive-contiguous
   "Creates an `additive` `tb-var` storing the values with `contiguous`.
 
@@ -53,7 +51,6 @@
   ([default-value] (opt-tb-var-additive/make (opt-tb-contiguous/make 10) default-value))
   ([] (opt-tb-var-additive/make (opt-tb-contiguous/make 10))))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn tb-var-latest-deltas
   "A `tb-var-latest` is a time-based variable that, when a measure is set at bucket `b`, is setting all further buckets to this value unless another measure is done in between.
 
@@ -69,7 +66,6 @@
   ([] (tb-var-latest-deltas nil))
   ([default-value] (opt-tb-var-latest/make (opt-tb-deltas/make) default-value)))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn tb-var-latest-contiguous
   "A `tb-var-latest` is a time-based variable that, when a measure is set at bucket `b`, is setting all further buckets to this value unless another measure is done in between.
 
@@ -85,58 +81,48 @@
   ([default-value size] (opt-tb-var-latest/make (opt-tb-contiguous/make size) default-value))
   ([default-value] (opt-tb-var-latest/make (opt-tb-contiguous/make 10) default-value)))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn default
   "Default value before measurement in the `tb-var`."
   [tb-var]
   (opt-tb-protocol/default tb-var))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn get-measure
   "Returns the data stored at time `bucket`."
   [tb-var bucket]
   (opt-tb-protocol/get-measure tb-var bucket))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn get-measures
   "Returns the range of data in `[bucket-begin;bucket-end[`."
   [tb-var buckets]
   (opt-tb-protocol/get-measures tb-var buckets))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn measure
   "Returns a new instance of TimeBased with `data` measured at time `bucket`. The effect will depend on the kind of TimeBased."
   [tb-var bucket data]
   (opt-tb-protocol/measure tb-var bucket data))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn aggregator
   "Returns the `aggregator` based on the `aggregates`."
   [aggregates]
   (opt-tb-aggregates/make-aggregator aggregates))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn validate-aggregates [aggregates] (opt-tb-aggregates/validate aggregates))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn to-bucket-aggregate
   "Translate `bucket` to a `bucket-aggregate` thanks to the `aggregator`."
   [aggregator bucket]
   (opt-tb-aggregator/bucket-aggregate aggregator bucket))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn to-bucket
   "Translate bucket-aggregate to `bucket` thanks to the `aggregator`."
   [aggregator bucket-aggregator]
   (opt-tb-aggregator/bucket-range aggregator bucket-aggregator))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn to-bucket-aggregates
   "Translate a range of `bucket` to `bucket-aggregates` thanks to the `aggregator`."
   [aggregator buckets]
   (opt-tb-aggregator/bucket-aggregates aggregator buckets))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn tb-var-aggregated
   "Creates a `tb-var` using the `aggregator` to store the `values` with aggregateed `bucket`."
   [aggregator time-based]

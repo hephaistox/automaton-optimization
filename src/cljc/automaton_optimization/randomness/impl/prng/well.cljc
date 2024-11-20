@@ -11,7 +11,6 @@
   (:require
    [automaton-optimization.maths :as opt-maths]))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (def int-max (bit-or (bit-shift-left opt-maths/infinity-integer 1) 1))
 
 (defn well-rng-1024a
