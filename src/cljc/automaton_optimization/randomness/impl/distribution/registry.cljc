@@ -4,9 +4,11 @@
   They are all implementing the `automaton-optimization.proba.distribution/Distribution` protocol.
   Note that you can enrich them with your own distribution implementations if needed."
   (:require
-   [automaton-optimization.randomness.impl.distribution.exponential :as opt-expo]
-   [automaton-optimization.randomness.impl.distribution.kixi-stats  :as opt-kixi-stats]
-   [automaton-optimization.randomness.impl.distribution.uniform     :as opt-uniform]))
+   [automaton-optimization.maths                                        :as opt-maths]
+   [automaton-optimization.randomness.impl.distribution.exponential     :as opt-expo]
+   [automaton-optimization.randomness.impl.distribution.kixi-stats      :as opt-kixi-stats]
+   [automaton-optimization.randomness.impl.distribution.uniform         :as opt-uniform]
+   [automaton-optimization.randomness.impl.distribution.uniform-integer :as opt-uniform-int]))
 
 (defn schema [] [:map-of :keyword fn?])
 
@@ -38,5 +40,14 @@
    :pareto (fn [_prng {:keys [scale shape]}] (opt-kixi-stats/make-pareto scale shape))
    :poisson (fn [_prng {:keys [lambda]}] (opt-kixi-stats/make-poisson lambda))
    :t (fn [_prng {:keys [v]}] (opt-kixi-stats/make-t v))
-   :uniform (fn [prng {:keys [a b]}] (opt-uniform/make prng a b))
+   :uniform (fn [prng
+                 {:keys [a b]
+                  :or {a 0
+                       b opt-maths/interop-max-integer}}]
+              (opt-uniform/make prng a b))
+   :uniform-int (fn [prng
+                     {:keys [a b]
+                      :or {a 0
+                           b opt-maths/interop-max-integer}}]
+                  (opt-uniform-int/make prng a b))
    :weibull (fn [_prng {:keys [shape scale]}] (opt-kixi-stats/make-weibull shape scale))})

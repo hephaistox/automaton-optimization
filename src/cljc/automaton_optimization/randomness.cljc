@@ -21,31 +21,25 @@
   ([seed] (opt-prng-xoro/make seed))
   ([] (opt-prng-xoro/make)))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn built-in
   "Creates an instance of the built-in prng of your platform (java or javascript)."
   []
   (opt-prng-built-in/make))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn duplicate
   "Duplicates this prng to a new one, starting at the seed value."
   [this]
   (opt-prng-stateful/duplicate this))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn jump "Jump to a completly different place." [this] (opt-prng-stateful/jump this))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn rnd-range
   "Returns the range in which rnd is returned."
   [this]
   (opt-prng-stateful/rnd-range this))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn seed "Returns the seed of the random number generator." [this] (opt-prng-stateful/seed this))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn reset
   "Returns a prng that starts again at the seed value."
   [this]
@@ -61,19 +55,16 @@
   [prng min-int max-int]
   (opt-prng-stateful/as-int prng min-int max-int))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn as-int-pair
   "Returns a pair of random integer between `[min-int; max-int[`."
   [prng min-int max-int]
   (let [rnd1 (as-int prng min-int max-int) rnd2 (as-int prng min-int max-int)] [rnd1 rnd2]))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn draw-ints
   "Draw `n` random integers with `prng`, between `[min-int; max-int[`."
   [prng n min-int max-int]
   (opt-prng-stateful/draw-ints prng n min-int max-int))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn draw-doubles
   "Draw `n` random doubles with `prng`, between `[min-int; max-int[`."
   [prng n min-int max-int]
@@ -88,20 +79,15 @@
 
 (defn distribution-registry "Returns the base registry." [] (opt-random-registry/registry))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn median
   "Returns the median of the distribution"
   ([distribution] (opt-proba-distribution/median distribution))
   ([kw params] (opt-proba-distribution/median (build kw params))))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (def cumulative "Returns the cumulative probability before `p`" opt-proba-distribution/cumulative)
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (def minimum "Minimum" opt-proba-distribution/minimum)
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (def maximum "Maximum" opt-proba-distribution/maximum)
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (def quantile opt-proba-distribution/quantile)

@@ -85,7 +85,6 @@
     (->Kixi (kixi-distribution/f {:d1 d1
                                   :d2 d2}))))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn make-gamma-rate
   "Returns a gamma distribution. `{:shape ∈ ℝ > 0, :rate ∈ ℝ > 0}`."
   [shape rate]
