@@ -1,6 +1,6 @@
 (ns automaton-optimization.maths
   "Implements all mathematical basics functions compatible both with clj and cljs compiler and aiming at return the same results."
-  (:refer-clojure :exclude [infinite? abs min max])
+  (:refer-clojure :exclude [infinite? abs min max mod])
   (:require
    #?(:cljs [cljs.math :as math])
    [xoroshiro128.core :as xoro]))
@@ -25,6 +25,12 @@
      :cljs js/Math.PI))
 
 (def HALF_PI "Half  PI" (/ PI 2.0))
+
+(def interop-max-integer
+  "Returns same int value that's highest possible and equal for both clj and cljs. For refernce look at Integer/MAX_VALUE clojure interop documentation"
+  (- (Math/pow 2 31) 1))
+
+(def interop-min-integer "same as interop-max-integer but for smallest" (- (Math/pow -2 31) 1))
 
 (def infinity-integer
   "Returns infinite for integer."
@@ -92,6 +98,13 @@
      :cljs ([x]
             (cond-> x
               (neg? x) -))))
+
+
+(defn mod
+  "Returns the modulus of dividing numerator n by denominator d."
+  [n d]
+  #?(:clj (clojure.core/mod n d)
+     :cljs (cljs.core/mod n d)))
 
 (defn sqrt
   "Square root of `x`, where `x∊[0;+∞[`."
